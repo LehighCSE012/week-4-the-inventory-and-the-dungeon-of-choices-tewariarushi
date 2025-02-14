@@ -45,6 +45,9 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
         elif challenge_type == "trap":
             print("You see a potential trap!")
             player_choice = input("Do you want to 'disarm' or 'bypass' the trap? ").strip().lower()
+            if challenge_outcome is not None:
+                    success_message, failure_message, health_change = challenge_outcome
+                    print(f"Challenge outcome: {success_message} | Failure: {failure_message} | Health change: {health_change}")
             if player_choice == "disarm":
                 success = random.choice([True, False])
                 if success:
@@ -53,9 +56,7 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
                 else:
                     print(challenge_outcome[1])  # Failure message
                     player_health += challenge_outcome[2]  # Health change
-        elif challenge_type == "none":
-            print("There doesn't seem to be a challenge in this room. You move on.")
-        
+               
         # Update player health if it drops below 0
         if player_health < 0:
             player_health = 0
@@ -67,4 +68,4 @@ def enter_dungeon(player_health, inventory, dungeon_rooms):
     # After exiting the dungeon, display player health
     print(f"\nYour final health is {player_health}.")
 
-    return player_health, inventory# Your code goes here
+    return player_health, inventory
